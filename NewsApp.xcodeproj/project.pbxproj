@@ -37,7 +37,14 @@
 		79A3AD502E9D2E7C00BE92CE /* Exceptions for "NewsApp" folder in "NewsApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Data/Network/DataMapping/.gitkeep,
+				Data/PersistentStorages/.gitkeep,
+				Data/Repositories/.gitkeep,
+				Domain/Entities/.gitkeep,
+				Domain/Interfaces/Repositories/.gitkeep,
+				Domain/UseCases/.gitkeep,
 				Info.plist,
+				Infrastructure/Network/.gitkeep,
 			);
 			target = 79A3AD272E9D2E7B00BE92CE /* NewsApp */;
 		};
@@ -369,6 +376,8 @@
 		};
 		79A3AD542E9D2E7C00BE92CE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 79A3AD2A2E9D2E7B00BE92CE /* NewsApp */;
+			baseConfigurationReferenceRelativePath = Debug.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -433,6 +442,8 @@
 		};
 		79A3AD552E9D2E7C00BE92CE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 79A3AD2A2E9D2E7B00BE92CE /* NewsApp */;
+			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

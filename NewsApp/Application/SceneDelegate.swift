@@ -9,6 +9,8 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
+  private let configuration = AppConfiguration()
+  
   var window: UIWindow?
   
   func scene(
@@ -16,6 +18,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     willConnectTo session: UISceneSession,
     options connectionOptions: UIScene.ConnectionOptions
   ) {
+    
+    do {
+      let apiBaseURL = try configuration.apiBaseURL
+    } catch {
+      dump(error)
+    }
+    
     guard let windowScene = scene as? UIWindowScene else { return }
     window = UIWindow(windowScene: windowScene)
     window?.rootViewController = FeedViewController()
