@@ -8,8 +8,10 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+
+  private let appDIContainer = AppDIContainer()
   
-  private let configuration = AppConfiguration()
+  private var coordinator: AppCoordinator?
   
   var window: UIWindow?
   
@@ -18,16 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     willConnectTo session: UISceneSession,
     options connectionOptions: UIScene.ConnectionOptions
   ) {
-    
-    do {
-      let apiBaseURL = try configuration.apiBaseURL
-    } catch {
-      dump(error)
-    }
-    
     guard let windowScene = scene as? UIWindowScene else { return }
+    
+    let controller = UITabBarController()
+    coordinator = AppCoordinator(tabBarController: controller, container: appDIContainer)
+    coordinator?.start()
+    
     window = UIWindow(windowScene: windowScene)
-    window?.rootViewController = FeedViewController()
+    window?.rootViewController = controller
     window?.makeKeyAndVisible()
   }
   
