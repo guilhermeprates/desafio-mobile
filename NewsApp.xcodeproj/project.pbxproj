@@ -44,7 +44,6 @@
 				Domain/Interfaces/Repositories/.gitkeep,
 				Domain/UseCases/.gitkeep,
 				Info.plist,
-				Infrastructure/Network/.gitkeep,
 			);
 			target = 79A3AD272E9D2E7B00BE92CE /* NewsApp */;
 		};
