@@ -37,12 +37,7 @@
 		79A3AD502E9D2E7C00BE92CE /* Exceptions for "NewsApp" folder in "NewsApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Data/Network/DataMapping/.gitkeep,
 				Data/PersistentStorages/.gitkeep,
-				Data/Repositories/.gitkeep,
-				Domain/Entities/.gitkeep,
-				Domain/Interfaces/Repositories/.gitkeep,
-				Domain/UseCases/.gitkeep,
 				Info.plist,
 			);
 			target = 79A3AD272E9D2E7B00BE92CE /* NewsApp */;
