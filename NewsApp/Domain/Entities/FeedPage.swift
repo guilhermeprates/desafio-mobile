@@ -7,12 +7,14 @@
 
 import Foundation
 
+typealias FeedPages = [FeedPage]
+
 final class FeedPage {
   let items: FeedItems
   let nextPage: Int
-  let oferta: String
+  let oferta: String?
   
-  init(items: FeedItems, nextPage: Int, oferta: String) {
+  init(items: FeedItems, nextPage: Int, oferta: String?) {
     self.items = items
     self.nextPage = nextPage
     self.oferta = oferta

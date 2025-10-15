@@ -16,7 +16,7 @@ struct FeedPageDTO: Decodable {
     var items: [FeedItemDTO]
     var nextPage: Int
   }
-  var oferta: String
+  var oferta: String?
   var falkor: Falkor
 }
 
