@@ -4,27 +4,56 @@
 
 ![News App Architecture](NewsAppArchitecture.png)
 
-### Presentation (MVVM-C/MVC)
+### Presentation Layer (MVVM-C / MVC)
 
-- Tab 1 e 2 exibem feeds com scroll infinito/pull-to-refresh.
-- Tab 3 exibe um menu.
-- ViewModel transforma eventos de UI em chamadas de caso de uso: `getFeedPage()`, `refreshFeedPage()`.
-- Mantém estados: items, isLoading, errorMessage.
+- **Tabs 1 e 2**: exibem feeds com *scroll infinito* e *pull-to-refresh*.
+- **Tab 3**: exibe um menu.
+- **ViewModel**: recebe eventos da UI e aciona casos de uso
+    (`getFeedPage()`, `getFeedNextPage()`).
+  - Mantém estados: `items`, `isLoading`, `errorMessage`.
+  - Garante deduplicação e atualização incremental da lista.
+- **Coordination**: o *Coordinator* gerencia rotas entre módulos e ciclo de vida dos *ViewControllers*.
 
-### Domain (Use Cases, Entities)
+#### Feed (MVVM)
 
-- Regra de negócio e contratos. Entidades puras: `FeedPage`, `FeedItem`.
-- Casos de uso: `FetchFeedPage`.
-- Define Repository como protocolo: `func fetchFeedPage(product: String) -> AnyPublisher<FeedPage, NetworkError>`.
+    ViewController/View -> ViewModel <- FetchFeedPageUseCase/FetchFeedNextPageUseCase
 
-### Data (Network, Persistence, Repositories)
+- Fluxo reativo com Combine.
+- A *view* observa as propriedades definidas com `@Published` na ViewModel para atualização da UI.
 
-- Implementa os repositórios. Orquestrar fontes: remoto + cache local.
-- Mapeia DTO+Entity, trata erros e converte para tipos da **domain**.
-- Estratégia de paginação: armazena **nextPage**, faz merge estável, evita chamadas paralelas duplicadas.
-- Cache: salvar páginas do *feed* com os seus respectivos *items*.
+#### WebView (MVC)
 
-### Infrastructure / Network
+```ViewController + WKWebView <- URL```
 
-- Cliente HTTP (URLSession), construção de requests e decodificação JSON.
-- Observa conectividade e limites de rate.
+- Responsável apenas por exibir conteúdo remoto, sem lógica de domínio.
+
+------------------------------------------------------------------------
+
+### Domain Layer (Use Cases / Entities)
+
+- Contém a lógica de negócio pura e independente de frameworks.
+- Entidades: `FeedPage`, `FeedItem` (imutable e decodable).
+- Caso de uso principal:
+
+        protocol FetchFeedPageUseCase {
+            func execute(product: String, cursor: String?) -> AnyPublisher<FeedPage,NetworkError>
+        }
+- Define *Repository contracts* (protocolos) para abstrair acesso a dados.
+
+------------------------------------------------------------------------
+
+### Data Layer (Repositories / Network / Persistence)
+
+- Implementa os *Repositories* definidos na camada de domínio.
+- Combina múltiplas fontes: **remota** (API) e **local** (cache).
+- Mapeia **DTOs -> Entities**, trata erros.
+- **Cache**:
+  - Persiste páginas e seus itens -- CoreData.
+
+------------------------------------------------------------------------
+
+### Infrastructure Layer / Network
+
+- Cliente server utilizando  `URLSession` e Combine.
+- Monta requests com `Endpoint` abstraindo *path*, *methods* e *headers*.
+- Faz decodificação genérica de JSON em DTOs.
