@@ -11,4 +11,7 @@ import Combine
 protocol FeedRepository {
   @discardableResult
   func fetchFeedPage(product: String) -> AnyPublisher<FeedPage, NetworkError>
+
+  @discardableResult
+  func fetchFeedNextPage(parameters: PageParameters) -> AnyPublisher<FeedPage, NetworkError>
 }

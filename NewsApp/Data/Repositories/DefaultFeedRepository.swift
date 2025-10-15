@@ -25,4 +25,14 @@ final class DefaultFeedRepository: FeedRepository {
       })
       .eraseToAnyPublisher()
   }
+  
+  func fetchFeedNextPage(parameters: PageParameters) -> AnyPublisher<FeedPage, NetworkError> {
+    let endpoint = APIEndpoints.getFeedPage(parameters: parameters)
+    return networkService.request(endpoint)
+      .map { (dto: ResponseDTO) in dto.feed.toDomain() }
+      .handleEvents(receiveOutput: { [weak self] feedPage in
+        // TODO: handle persistence
+      })
+      .eraseToAnyPublisher()
+  }
 }
