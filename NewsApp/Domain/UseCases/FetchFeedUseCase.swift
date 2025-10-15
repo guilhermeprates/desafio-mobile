@@ -16,7 +16,19 @@ final class FetchFeedUseCase {
     self.feedRepository = feedRepository
   }
   
-  func getFeedPage(product: String) -> AnyPublisher<FeedPage, NetworkError> {
-    return self.feedRepository.fetchFeedPage(product: product)
+  func start(product: String) -> AnyPublisher<FeedPage, NetworkError> {
+    return feedRepository.fetchFeedPage(product: product)
+      .map {
+        return FeedPage(
+          items: $0.items.filter { self.isTypeAllowed($0.type) },
+          nextPage: $0.nextPage,
+          oferta: $0.oferta
+        )
+      }
+      .eraseToAnyPublisher()
+  }
+  
+  func isTypeAllowed(_ type: String) -> Bool {
+    return type == "basico" || type == "materia"
   }
 }
