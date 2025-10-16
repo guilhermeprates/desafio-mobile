@@ -57,6 +57,16 @@ final class MenuViewController: UIViewController {
       showAlert(title: "Error", message: "Ops! Algo de errado aconteceu.")
     }
   }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.setNavigationBarHidden(true, animated: animated)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    navigationController?.setNavigationBarHidden(false, animated: animated)
+  }
 }
 
 // MARK: - UITableViewDelegate
