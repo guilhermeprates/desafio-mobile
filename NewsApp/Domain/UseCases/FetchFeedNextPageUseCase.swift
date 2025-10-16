@@ -20,16 +20,12 @@ final class FetchFeedNextPageUseCase {
     return feedRepository.fetchFeedNextPage(parameters: parameters)
       .map {
         return FeedPage(
-          items: $0.items.filter { self.isTypeAllowed($0.type) },
+          items: $0.items.filter { $0.type.isTypeAllowed() },
           nextPage: $0.nextPage,
           oferta: $0.oferta
         )
       }
       .eraseToAnyPublisher()
-  }
-  
-  func isTypeAllowed(_ type: String) -> Bool {
-    return type == "basico" || type == "materia"
   }
 }
 

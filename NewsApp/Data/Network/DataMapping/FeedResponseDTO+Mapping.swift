@@ -73,7 +73,8 @@ struct FeedItemDTO: Decodable {
 extension FeedItemDTO {
   func toDomain() -> FeedItem {
     return FeedItem(
-      type: self.type ?? "",
+      id: self.id,
+      type: FeedItemType(rawValue: self.type ?? "") ?? .other,
       title: self.content?.title ?? "",
       summary: self.content?.summary ?? "",
       chapeu: self.content?.chapeu?.label ?? "",

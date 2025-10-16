@@ -10,8 +10,8 @@ import Foundation
 typealias FeedItems = [FeedItem]
 
 nonisolated final class FeedItem: Identifiable, Hashable {
-  let id: UUID
-  let type: String
+  let id: String
+  let type: FeedItemType
   let title: String
   let summary: String?
   let chapeu: String
@@ -20,7 +20,8 @@ nonisolated final class FeedItem: Identifiable, Hashable {
   let url: URL?
   
   init(
-    type: String,
+    id: String,
+    type: FeedItemType,
     title: String,
     summary: String? = nil,
     chapeu: String,
@@ -28,7 +29,7 @@ nonisolated final class FeedItem: Identifiable, Hashable {
     metadata: String,
     url: URL? = nil
   ) {
-    self.id = UUID()
+    self.id = id
     self.type = type
     self.title = title
     self.summary = summary

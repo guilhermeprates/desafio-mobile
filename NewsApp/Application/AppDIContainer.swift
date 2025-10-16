@@ -5,7 +5,7 @@
 //  Created by Guilherme Prates on 14/10/25.
 //
 
-import Foundation
+import UIKit
 
 final class AppDIContainer {
   
@@ -20,4 +20,18 @@ final class AppDIContainer {
       fatalError("Could not create NetworkService: \(error)")
     }
   }()
+  
+  func makeFeed(
+    title: String,
+    product: String,
+    tabBarImage image: UIImage? = nil,
+    tabBarTag tag: Int = 0
+  ) -> FeedViewController {
+    let feedRepository = DefaultFeedRepository(networkService: networkService)
+    let feedViewModel = FeedViewModel(product: product, feedRepository: feedRepository)
+    let feedViewController = FeedViewController(viewModel: feedViewModel)
+    feedViewController.title = title
+    feedViewController.tabBarItem = UITabBarItem(title: title, image: image, tag: tag)
+    return feedViewController
+  }
 }

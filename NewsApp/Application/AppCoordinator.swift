@@ -21,25 +21,24 @@ final class AppCoordinator: NSObject, TabBarCoordinator {
   }
   
   func start() {
-    let g1FeedViewController = FeedViewController()
-    g1FeedViewController.tabBarItem = UITabBarItem(
-      title: "G1",
-      image: UIImage(systemName: "newspaper"),
-      tag: 0
-    )
-    
-    let agronegocioFeedViewController = FeedViewController()
-    agronegocioFeedViewController.tabBarItem = UITabBarItem(
-      title: "Agronegócio",
-      image: UIImage(systemName: "newspaper"),
-      tag: 1
-    )
-    
     tabBarController.viewControllers = [
-      g1FeedViewController,
-      agronegocioFeedViewController
+      UINavigationController(
+        rootViewController: container.makeFeed(
+          title: "G1",
+          product: "g1",
+          tabBarImage: UIImage(systemName: "newspaper"),
+          tabBarTag: 2
+        )
+      ),
+      UINavigationController(
+        rootViewController: container.makeFeed(
+          title: "Agronegócio",
+          product: "https://g1.globo.com/economia/agronegocios",
+          tabBarImage: UIImage(systemName: "newspaper"),
+          tabBarTag: 1
+        )
+      )
     ]
-    
     tabBarController.selectedIndex = 0
   }
 }
