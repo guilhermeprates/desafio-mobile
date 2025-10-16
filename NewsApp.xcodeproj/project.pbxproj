@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7946B48E2E9FC87000E43AF0 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7946B48D2E9FC87000E43AF0 /* Kingfisher */; };
 		79A3AE1D2E9D885F00BE92CE /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 79A3AE1C2E9D885F00BE92CE /* SnapKit-Dynamic */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7946B48E2E9FC87000E43AF0 /* Kingfisher in Frameworks */,
 				79A3AE1D2E9D885F00BE92CE /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,12 +93,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7946B48C2E9FC87000E43AF0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		79A3AD1F2E9D2E7B00BE92CE = {
 			isa = PBXGroup;
 			children = (
 				79A3AD2A2E9D2E7B00BE92CE /* NewsApp */,
 				79A3AD412E9D2E7C00BE92CE /* NewsAppTests */,
 				79A3AD4B2E9D2E7C00BE92CE /* NewsAppUITests */,
+				7946B48C2E9FC87000E43AF0 /* Frameworks */,
 				79A3AD292E9D2E7B00BE92CE /* Products */,
 			);
 			indentWidth = 2;
@@ -134,6 +144,7 @@
 			name = NewsApp;
 			packageProductDependencies = (
 				79A3AE1C2E9D885F00BE92CE /* SnapKit-Dynamic */,
+				7946B48D2E9FC87000E43AF0 /* Kingfisher */,
 			);
 			productName = NewsApp;
 			productReference = 79A3AD282E9D2E7B00BE92CE /* NewsApp.app */;
@@ -219,6 +230,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				79A3AE1B2E9D885F00BE92CE /* XCRemoteSwiftPackageReference "SnapKit" */,
+				796734512E9F3B6C00754AA0 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 79A3AD292E9D2E7B00BE92CE /* Products */;
@@ -296,6 +308,8 @@
 /* Begin XCBuildConfiguration section */
 		79A3AD522E9D2E7C00BE92CE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 79A3AD2A2E9D2E7B00BE92CE /* NewsApp */;
+			baseConfigurationReferenceRelativePath = Debug.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -333,6 +347,8 @@
 		};
 		79A3AD532E9D2E7C00BE92CE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 79A3AD2A2E9D2E7B00BE92CE /* NewsApp */;
+			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -495,6 +511,8 @@
 		};
 		79A3AD572E9D2E7C00BE92CE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 79A3AD2A2E9D2E7B00BE92CE /* NewsApp */;
+			baseConfigurationReferenceRelativePath = Debug.xcconfig;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -517,6 +535,8 @@
 		};
 		79A3AD582E9D2E7C00BE92CE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 79A3AD2A2E9D2E7B00BE92CE /* NewsApp */;
+			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -539,6 +559,8 @@
 		};
 		79A3AD5A2E9D2E7C00BE92CE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 79A3AD2A2E9D2E7B00BE92CE /* NewsApp */;
+			baseConfigurationReferenceRelativePath = Debug.xcconfig;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -559,6 +581,8 @@
 		};
 		79A3AD5B2E9D2E7C00BE92CE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 79A3AD2A2E9D2E7B00BE92CE /* NewsApp */;
+			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -638,6 +662,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7946B48D2E9FC87000E43AF0 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 796734512E9F3B6C00754AA0 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		79A3AE1C2E9D885F00BE92CE /* SnapKit-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 79A3AE1B2E9D885F00BE92CE /* XCRemoteSwiftPackageReference "SnapKit" */;
