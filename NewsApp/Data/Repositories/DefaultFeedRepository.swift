@@ -10,7 +10,7 @@ import Combine
 
 final class DefaultFeedRepository: FeedRepository {
   
-  private var networkService: NetworkService
+  private let networkService: NetworkService
   
   init(networkService: NetworkService) {
     self.networkService = networkService
