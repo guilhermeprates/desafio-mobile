@@ -91,6 +91,7 @@ extension MenuViewController: UITableViewDataSource {
     content.text = menuItems[indexPath.row].title
     cell.contentConfiguration = content
     cell.selectionStyle = .none
+    cell.accessoryType = .disclosureIndicator
     return cell
   }
 }
