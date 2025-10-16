@@ -32,7 +32,7 @@ final class AppCoordinator: NSObject, TabBarCoordinator {
     )
     let agroDependecies = FeedDIContainer(
       product: "https://g1.globo.com/economia/agronegocios/",
-      title: "Agronegócio",
+      title: "Agronegócios",
       networkService: dependecies.networkService
     )
     let menuDependecies = MenuDIContainer(
@@ -58,7 +58,7 @@ final class AppCoordinator: NSObject, TabBarCoordinator {
       tag: 0
     )
     agroNavigationController.tabBarItem = UITabBarItem(
-      title: "Agronegócio",
+      title: "Agronegócios",
       image: UIImage(systemName: "newspaper"),
       tag: 1
     )
