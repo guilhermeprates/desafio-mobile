@@ -6,24 +6,34 @@
 
 ### Presentation Layer (MVVM-C / MVC)
 
-- **Tabs 1 e 2**: exibem feeds com *scroll infinito* e *pull-to-refresh*.
-- **Tab 3**: exibe um menu.
+- **Views**:
+  - **TabBar**:
+    1. **Feed G1**: a tela exibe feed do g1 com *scroll infinito* e *pull-to-refresh*.
+    2. **Feed Agronegócios**: a tela exibe feed do agro com *scroll infinito* e *pull-to-refresh*.
+    3. **Menu**: atela exibe um menu com vários items.
+  - **WebView**: a tela exibe o conteúdo de uma `URL`.
 - **ViewModel**: recebe eventos da UI e aciona casos de uso
-    (`getFeedPage()`, `getFeedNextPage()`).
+    (`loadFeed()`, `loadNextPage()`).
   - Mantém estados: `items`, `isLoading`, `errorMessage`.
   - Garante deduplicação e atualização incremental da lista.
-- **Coordination**: o *Coordinator* gerencia rotas entre módulos e ciclo de vida dos *ViewControllers*.
+- **Coordinatior**: o *Coordinator* gerencia rotas entre módulos e ciclo de vida dos *ViewControllers*.
 
-#### Feed (MVVM)
+#### Feed (MVVM-C)
 
     ViewController/View -> ViewModel <- FetchFeedPageUseCase/FetchFeedNextPageUseCase
 
 - Fluxo reativo com Combine.
-- A *view* observa as propriedades definidas com `@Published` na ViewModel para atualização da UI.
+- A *view* observa as propriedades definidas com `@Published` na **ViewModel** para atualização da **UI**.
+
+#### Menu (MVC-C)
+
+    MenuViewController <- MenuRepository
+
+- Responsável apenas por exibir conteúdo de um arquivo JSON, lógica mais simples de domínio.
 
 #### WebView (MVC)
 
-```ViewController + WKWebView <- URL```
+    WebViewController + WKWebView <- URL
 
 - Responsável apenas por exibir conteúdo remoto, sem lógica de domínio.
 
@@ -32,13 +42,13 @@
 ### Domain Layer (Use Cases / Entities)
 
 - Contém a lógica de negócio pura e independente de frameworks.
-- Entidades: `FeedPage`, `FeedItem` (imutable e decodable).
-- Caso de uso principal:
-
-        protocol FetchFeedPageUseCase {
-            func execute(product: String, cursor: String?) -> AnyPublisher<FeedPage,NetworkError>
-        }
-- Define *Repository contracts* (protocolos) para abstrair acesso a dados.
+- Entidades:
+  - `FeedPage`,`FeedItem` (imutable).
+  - `Menu`, `MenuItem` (imutable e decodable).
+- Casos de uso:
+  - FetchFeedPageUseCase
+  - FetchFeedNextPageUseCase
+- Define *Repository Contracts* (protocolos) para abstrair acesso a dados.
 
 ------------------------------------------------------------------------
 
@@ -46,7 +56,7 @@
 
 - Implementa os *Repositories* definidos na camada de domínio.
 - Combina múltiplas fontes: **remota** (API) e **local** (cache).
-- Mapeia **DTOs -> Entities**, trata erros.
+- Mapeia **DTOs** para **Entities**, trata erros.
 - **Cache**:
   - Persiste páginas e seus itens -- CoreData.
 
