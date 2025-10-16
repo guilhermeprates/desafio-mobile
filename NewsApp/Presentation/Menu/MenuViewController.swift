@@ -21,10 +21,11 @@ final class MenuViewController: UIViewController {
     tableView.dataSource = self
     tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     tableView.separatorStyle = .singleLine
-    tableView.separatorColor = UIColor.lightGray
-    tableView.backgroundColor = UIColor.white
+    tableView.separatorColor = .lightGray
+    tableView.backgroundColor = .white
     tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 40
+    tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0)) /// hide first separator
     tableView.register(cellWithClass: UITableViewCell.self)
     return tableView
   }()
