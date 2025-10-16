@@ -25,6 +25,15 @@ final class FeedCoordinator: FlowCoordinator {
     let feedViewModel = FeedViewModel(product: dependecies.product, feedRepository: feedRepository)
     let feedViewController = FeedViewController(viewModel: feedViewModel)
     feedViewController.title = dependecies.title
+    feedViewController.goToWebView = { [weak self] url in
+      self?.goToWebView(url: url)
+    }
     navigation.pushViewController(feedViewController, animated: false)
+  }
+  
+  func goToWebView(url: URL) {
+    let viewController = WebViewController(url: url)
+    viewController.hidesBottomBarWhenPushed = true
+    navigation.pushViewController(viewController, animated: true)
   }
 }

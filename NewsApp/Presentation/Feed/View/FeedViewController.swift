@@ -57,6 +57,8 @@ final class FeedViewController: UIViewController {
   
   private var cancellables = Set<AnyCancellable>()
   
+  var goToWebView: ((_ url: URL) -> Void)?
+  
   init(viewModel: FeedViewModel) {
     self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
@@ -129,7 +131,10 @@ final class FeedViewController: UIViewController {
 extension FeedViewController: UICollectionViewDelegate {
  
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    // TODO: Open WebView
+    let snapshot = dataSource.snapshot()
+    let item = snapshot.itemIdentifiers[indexPath.item]
+    guard let url = item.url else { return }
+    goToWebView?(url)
   }
 }
 
