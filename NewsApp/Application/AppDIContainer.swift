@@ -10,7 +10,7 @@ import UIKit
 final class AppDIContainer {
   
   private(set) var appConfiguration: AppConfiguration
-  
+
   lazy var networkService: NetworkService = {
     do {
       let baseURL = try appConfiguration.apiBaseURL
@@ -19,6 +19,10 @@ final class AppDIContainer {
     } catch {
       fatalError("Could not create NetworkService: \(error)")
     }
+  }()
+  
+  lazy var fileReaderService: FileReaderService = {
+    return FileReaderService()
   }()
   
   init(appConfiguration: AppConfiguration) {

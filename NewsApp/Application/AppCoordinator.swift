@@ -23,6 +23,7 @@ final class AppCoordinator: NSObject, TabBarCoordinator {
   func start() {
     let g1NavigationController = UINavigationController()
     let agroNavigationController = UINavigationController()
+    let menuNavigationController = UINavigationController()
     
     let g1Dependecies = FeedDIContainer(
       product: "g1",
@@ -34,6 +35,9 @@ final class AppCoordinator: NSObject, TabBarCoordinator {
       title: "Agronegócio",
       networkService: dependecies.networkService
     )
+    let menuDependecies = MenuDIContainer(
+      fileReaderService: dependecies.fileReaderService
+    )
     
     let g1Coodinator = FeedCoordinator(
       navigation: g1NavigationController,
@@ -42,6 +46,10 @@ final class AppCoordinator: NSObject, TabBarCoordinator {
     let agroCoodinator = FeedCoordinator(
       navigation: agroNavigationController,
       dependecies: agroDependecies
+    )
+    let menuCoodinator = MenuCoordinator(
+      navigation: menuNavigationController,
+      dependecies: menuDependecies
     )
     
     g1NavigationController.tabBarItem = UITabBarItem(
@@ -54,16 +62,25 @@ final class AppCoordinator: NSObject, TabBarCoordinator {
       image: UIImage(systemName: "newspaper"),
       tag: 1
     )
+    menuNavigationController.tabBarItem = UITabBarItem(
+      title: "Menu",
+      image: UIImage(systemName: "list.triangle"),
+      tag: 2
+    )
     
     g1Coodinator.start()
     agroCoodinator.start()
+    menuCoodinator.start()
     
     tabBarController.viewControllers = [
       g1NavigationController,
       agroNavigationController,
+      menuNavigationController,
     ]
     
-    children.append(contentsOf: [g1Coodinator, agroCoodinator])
+    children.append(g1Coodinator)
+    children.append(agroCoodinator)
+    children.append(menuCoodinator)
   }
 }
 
