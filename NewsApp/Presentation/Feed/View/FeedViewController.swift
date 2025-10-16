@@ -23,8 +23,7 @@ final class FeedViewController: UIViewController {
     dataSource = FeedDataSource(collectionView: collectionView) { collectionView, indexPath, item in
       let cell = collectionView.dequeueReusableCell(withClass: FeedItemCell.self, for: indexPath)
       let viewModel = FeedItemViewModel(item: item)
-      cell.configure(viewModel: viewModel, parent: self)
-      cell.backgroundColor = .blue
+      cell.configure(viewModel: viewModel)
       return cell
     }
     return dataSource
@@ -159,14 +158,14 @@ extension FeedViewController {
         let item = NSCollectionLayoutItem(
           layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(300)
+            heightDimension: .estimated(340)
           )
         )
         // group
         let group = NSCollectionLayoutGroup.vertical(
           layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(300)
+            heightDimension: .estimated(340)
           ),
           subitems: [item]
         )

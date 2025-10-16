@@ -11,32 +11,50 @@ import SnapKit
 
 final class FeedItemCell: UICollectionViewCell {
   
-  private var host: UIHostingController<FeedItemView>?
+  private var hostingController: UIHostingController<FeedItemView>? = nil
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupConstraints()
+  }
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    setupConstraints()
+  }
+  
+  private func setupConstraints() {
+    guard let hostingView = hostingController?.view else {
+      return
+    }
+    hostingView.translatesAutoresizingMaskIntoConstraints = false
+    contentView.addSubview(hostingView)
     
-  func configure(viewModel: FeedItemViewModel, parent: UIViewController) {
+    hostingView.snp.makeConstraints { make in
+      make.edges.equalTo(contentView.snp.edges)
+    }
+  }
+  
+  func configure(viewModel: FeedItemViewModel) {
     if #available(iOS 16.0, *) {
       contentConfiguration = UIHostingConfiguration {
         return FeedItemView(viewModel: viewModel)
       }.margins(.all, 0)
     } else {
-      if let host = self.host {
-        host.rootView = FeedItemView(viewModel: viewModel)
-        host.view.layoutIfNeeded()
+      if hostingController != nil {
+        hostingController?.rootView = FeedItemView(viewModel: viewModel)
       } else {
-        let host = UIHostingController(rootView: FeedItemView(viewModel: viewModel))
-        parent.addChild(host)
-        host.didMove(toParent: parent)
-        host.view.frame = self.contentView.bounds
-        contentView.addSubview(host.view)
-        self.host = host
+        let newHostingController = UIHostingController(rootView: FeedItemView(viewModel: viewModel))
+        hostingController = newHostingController
+        addSubview(newHostingController.view)
+        newHostingController.view.frame = bounds
+        setupConstraints()
       }
     }
   }
   
-  deinit {
-    host?.willMove(toParent: nil)
-    host?.view.removeFromSuperview()
-    host?.removeFromParent()
-    host = nil
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    hostingController?.view.invalidateIntrinsicContentSize()
   }
 }

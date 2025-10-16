@@ -14,44 +14,38 @@ struct FeedItemView: View {
   var viewModel: FeedItemViewModel
   
   var body: some View {
-    Group {
-      VStack(alignment: .leading) {
-        if !viewModel.chapeu.isEmpty {
-          Text(viewModel.chapeu)
-            .lineLimit(1)
-            .frame(maxWidth: .infinity, alignment: .leading)
-          Spacer()
-        }
-        if !viewModel.title.isEmpty {
-          Text(viewModel.title)
-            .lineLimit(3)
-            .font(.headline)
-            .frame(maxWidth: .infinity, alignment: .leading)
-          Spacer()
-        }
-        if let image = viewModel.image {
-          KFImage(image)
-            .resizable()
-            .scaledToFill()
-            .frame(maxHeight: 200)
-            .clipShape(.rect(cornerRadius: 8))
-          Spacer()
-        }
-        if !viewModel.summary.isEmpty {
-          Text(viewModel.summary)
-            .lineLimit(4)
-            .frame(maxWidth: .infinity, alignment: .leading)
-          Spacer()
-        }
-        Text(viewModel.metadata)
+    VStack(alignment: .leading, spacing: 8) {
+      if !viewModel.chapeu.isEmpty {
+        Text(viewModel.chapeu)
           .lineLimit(1)
-          .font(.footnote)
-          .frame(maxWidth: .infinity, alignment: .leading)
+          .fixedSize(horizontal: false, vertical: true)
       }
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(16)
+      if !viewModel.title.isEmpty {
+        Text(viewModel.title)
+          .font(.headline)
+          .lineLimit(3)
+          .fixedSize(horizontal: false, vertical: true)
+          .layoutPriority(1)
+      }
+      if let image = viewModel.image {
+        KFImage(image)
+          .resizable()
+          .scaledToFill()
+          .frame(height: 200)
+          .clipped()
+          .clipShape(.rect(cornerRadius: 8))
+      }
+      if !viewModel.summary.isEmpty {
+        Text(viewModel.summary)
+          .lineLimit(4)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+      Text(viewModel.metadata)
+        .font(.footnote)
+        .lineLimit(1)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(16)
     .background(.white)
   }
 }
