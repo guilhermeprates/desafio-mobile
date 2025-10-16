@@ -9,7 +9,7 @@ import UIKit
 
 final class AppDIContainer {
   
-  var appConfiguration = AppConfiguration()
+  private(set) var appConfiguration: AppConfiguration
   
   lazy var networkService: NetworkService = {
     do {
@@ -21,17 +21,7 @@ final class AppDIContainer {
     }
   }()
   
-  func makeFeed(
-    title: String,
-    product: String,
-    tabBarImage image: UIImage? = nil,
-    tabBarTag tag: Int = 0
-  ) -> FeedViewController {
-    let feedRepository = DefaultFeedRepository(networkService: networkService)
-    let feedViewModel = FeedViewModel(product: product, feedRepository: feedRepository)
-    let feedViewController = FeedViewController(viewModel: feedViewModel)
-    feedViewController.title = title
-    feedViewController.tabBarItem = UITabBarItem(title: title, image: image, tag: tag)
-    return feedViewController
+  init(appConfiguration: AppConfiguration) {
+    self.appConfiguration = appConfiguration
   }
 }

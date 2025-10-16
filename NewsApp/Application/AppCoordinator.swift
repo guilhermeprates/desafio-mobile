@@ -8,38 +8,62 @@
 import UIKit
 
 final class AppCoordinator: NSObject, TabBarCoordinator {
-  
-  private let container: AppDIContainer
+ 
+  var children: [Coordinator] = []
   
   var tabBarController: UITabBarController
   
-  var children: [Coordinator] = []
+  var dependecies: AppDIContainer
   
-  init(tabBarController: UITabBarController, container: AppDIContainer) {
+  init(tabBarController: UITabBarController, dependecies: AppDIContainer) {
     self.tabBarController = tabBarController
-    self.container = container
+    self.dependecies = dependecies
   }
   
   func start() {
+    let g1NavigationController = UINavigationController()
+    let agroNavigationController = UINavigationController()
+    
+    let g1Dependecies = FeedDIContainer(
+      product: "g1",
+      title: "G1",
+      networkService: dependecies.networkService
+    )
+    let agroDependecies = FeedDIContainer(
+      product: "https://g1.globo.com/economia/agronegocios/",
+      title: "Agronegócio",
+      networkService: dependecies.networkService
+    )
+    
+    let g1Coodinator = FeedCoordinator(
+      navigation: g1NavigationController,
+      dependecies: g1Dependecies
+    )
+    let agroCoodinator = FeedCoordinator(
+      navigation: agroNavigationController,
+      dependecies: agroDependecies
+    )
+    
+    g1NavigationController.tabBarItem = UITabBarItem(
+      title: "G1",
+      image: UIImage(systemName: "newspaper"),
+      tag: 0
+    )
+    agroNavigationController.tabBarItem = UITabBarItem(
+      title: "Agronegócio",
+      image: UIImage(systemName: "newspaper"),
+      tag: 1
+    )
+    
+    g1Coodinator.start()
+    agroCoodinator.start()
+    
     tabBarController.viewControllers = [
-      UINavigationController(
-        rootViewController: container.makeFeed(
-          title: "G1",
-          product: "g1",
-          tabBarImage: UIImage(systemName: "newspaper"),
-          tabBarTag: 2
-        )
-      ),
-      UINavigationController(
-        rootViewController: container.makeFeed(
-          title: "Agronegócio",
-          product: "https://g1.globo.com/economia/agronegocios",
-          tabBarImage: UIImage(systemName: "newspaper"),
-          tabBarTag: 1
-        )
-      )
+      g1NavigationController,
+      agroNavigationController,
     ]
-    tabBarController.selectedIndex = 0
+    
+    children.append(contentsOf: [g1Coodinator, agroCoodinator])
   }
 }
 

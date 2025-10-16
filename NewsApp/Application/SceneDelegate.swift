@@ -9,7 +9,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-  private let appDIContainer = AppDIContainer()
+  private let appConfiguration = AppConfiguration()
   
   private var coordinator: AppCoordinator?
   
@@ -22,8 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   ) {
     guard let windowScene = scene as? UIWindowScene else { return }
     
+    let appDIContainer = AppDIContainer(appConfiguration: appConfiguration)
     let controller = UITabBarController()
-    coordinator = AppCoordinator(tabBarController: controller, container: appDIContainer)
+    coordinator = AppCoordinator(tabBarController: controller, dependecies: appDIContainer)
     coordinator?.start()
     
     window = UIWindow(windowScene: windowScene)
